@@ -12,7 +12,7 @@ const projects = [
     title: "Ruang Nadi Coffee",
     desc: "Landing page modern dan estetik untuk kedai kopi. Menampilkan katalog menu digital dan melakukan pemesanan.",
     longDesc:
-      "Ruang Nadi Coffee adalah platform digital yang dirancang untuk meningkatkan kehadiran online kedai kopi. Website ini menampilkan katalog menu interaktif, informasi lokasi, dan integrasi pemesanan sederhana. Desainnya responsif dan dioptimalkan untuk kecepatan muat yang cepat.",
+      "Ruang Nadi Coffee adalah platform digital yang dirancang untuk menampilkan katalog menu interaktif, informasi lokasi, dan integrasi pemesanan sederhana. Desainnya responsif dan dioptimalkan untuk kecepatan muat yang cepat.",
     technologies: ["React", "Tailwind CSS", "Framer Motion"],
     link: "https://ruang-nadi-web.vercel.app/",
     isMobile: false,
@@ -207,7 +207,7 @@ const Projects = () => {
       {/* PROJECT DETAIL MODAL */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#020826]/80 backdrop-blur-md transition-all duration-300"
+          className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-[#020826]/80 backdrop-blur-md transition-all duration-300"
           onClick={() => setSelectedProject(null)}
         >
           <div
@@ -249,13 +249,13 @@ const Projects = () => {
                   alt={selectedProject.title}
                   className={`max-h-[40vh] md:max-h-[60vh] w-auto object-contain drop-shadow-2xl ${
                     selectedProject.isMobile
-                      ? "rounded-[2rem] border-4 border-[#020826]"
+                      ? "rounded-4xl border-4 border-[#020826]"
                       : "rounded-lg"
                   }`}
                 />
               </div>
               {/* Decorative blob behind image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#8c7851]/10 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-[#8c7851]/10 to-transparent pointer-events-none"></div>
             </div>
 
             {/* Right Side: Content */}
@@ -282,7 +282,7 @@ const Projects = () => {
                 {/* Gallery Simulation */}
                 <div className="mb-8">
                   <h4 className="text-sm font-bold text-[#020826] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <span className="w-8 h-[2px] bg-[#8c7851]"></span>
+                    <span className="w-8 h-0.5 bg-[#8c7851]"></span>
                     Gallery
                   </h4>
                   <div className="grid grid-cols-3 gap-3">

@@ -61,16 +61,16 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f9f4ef] text-[#020826] font-['Poppins',sans-serif] selection:bg-[#8c7851] selection:text-[#fffffe] overflow-x-hidden relative">
+    // Menggunakan class semantic dari tailwind.config.js (bg-background, text-primary, dll)
+    <div className="min-h-screen bg-background text-primary selection:bg-accent selection:text-surface overflow-x-hidden relative">
+      {/* Global Styles dipindahkan ke index.css, sisa style spesifik di sini */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
         html { scroll-behavior: smooth; }
         
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Glassmorphism untuk Light Mode */
+        /* Glassmorphism menggunakan variable warna CSS atau hardcoded rgba untuk transparansi */
         .glass-nav {
           background: rgba(255, 255, 254, 0.7);
           backdrop-filter: blur(20px);
@@ -80,8 +80,8 @@ const App = () => {
         }
 
         .glass-card {
-          background: #fffffe; /* Main White */
-          border: 1px solid rgba(140, 120, 81, 0.1); /* Highlight color border halus */
+          background: #fffffe; 
+          border: 1px solid rgba(140, 120, 81, 0.1); 
           box-shadow: 0 4px 20px rgba(2, 8, 38, 0.05);
         }
 
@@ -105,7 +105,6 @@ const App = () => {
           animation: marquee 25s linear infinite;
         }
         
-        /* Gradient Text menggunakan warna Highlight (#8c7851) dan Tertiary (#f25042) */
         .text-gradient {
           background: linear-gradient(to right, #8c7851, #f25042);
           -webkit-background-clip: text;
@@ -113,16 +112,16 @@ const App = () => {
         }
       `}</style>
 
-      {/* BACKGROUND BLOBS */}
+      {/* BACKGROUND BLOBS - Menggunakan warna dari config */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div ref={blob1Ref} className="absolute top-0 left-1/4">
-          <div className="w-96 h-96 bg-[#8c7851]/20 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob"></div>
+          <div className="w-96 h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob"></div>
         </div>
         <div ref={blob2Ref} className="absolute top-0 right-1/4">
-          <div className="w-96 h-96 bg-[#f25042]/15 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob animation-delay-2000"></div>
+          <div className="w-96 h-96 bg-error/15 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob animation-delay-2000"></div>
         </div>
         <div ref={blob3Ref} className="absolute -bottom-32 left-1/3">
-          <div className="w-96 h-96 bg-[#eaddcf] rounded-full mix-blend-multiply filter blur-[80px] opacity-60 animate-blob animation-delay-4000"></div>
+          <div className="w-96 h-96 bg-line rounded-full mix-blend-multiply filter blur-[80px] opacity-60 animate-blob animation-delay-4000"></div>
         </div>
       </div>
 
@@ -136,7 +135,7 @@ const App = () => {
       {/* Back To Top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-8 right-8 p-3 bg-[#8c7851] text-[#fffffe] rounded-full shadow-lg shadow-[#8c7851]/40 hover:bg-[#020826] transition-all duration-300 ${
+        className={`fixed bottom-8 right-8 p-3 bg-accent text-surface rounded-full shadow-lg shadow-accent/40 hover:bg-primary transition-all duration-300 ${
           showBackToTop
             ? "translate-y-0 opacity-100"
             : "translate-y-10 opacity-0 pointer-events-none"
