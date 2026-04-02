@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import project1 from "../assets/img/project1.png";
 import project2 from "../assets/img/project2.png";
 import project3 from "../assets/img/project3.png";
-import project4 from "../assets/img/project4.png";
 
 const projects = [
   {
@@ -37,17 +36,6 @@ const projects = [
       "Sistem ini mempermudah penyewaan lapangan futsal dengan fitur cek jadwal real-time, booking online, dan manajemen member. Admin dapat mengelola jadwal dan pembayaran melalui dashboard khusus.",
     technologies: ["PHP", "Bootstrap", "MySQL"],
     link: "#",
-    isMobile: false,
-  },
-  {
-    id: 4,
-    img: project4,
-    title: "Smart Attendance",
-    desc: "Sistem absensi berbasis web menggunakan teknologi face recognition.",
-    longDesc:
-      "Sistem absensi cerdas yang memanfaatkan API pengenalan wajah untuk verifikasi kehadiran karyawan. Dilengkapi dengan fitur geolocation untuk memastikan karyawan absen di lokasi yang ditentukan, serta laporan kehadiran otomatis.",
-    technologies: ["Python", "Flask", "OpenCV", "React"],
-    link: "https://next-face-attendance.vercel.app/",
     isMobile: false,
   },
 ];
