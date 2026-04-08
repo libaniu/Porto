@@ -32,22 +32,20 @@ const Navbar = ({ activeSection, isScrolled }) => {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8 text-l font-medium text-[#716040]">
-          {["Home", "Services", "Experience", "Projects", "Contact"].map(
-            (item) => (
-              <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  className={`hover:text-[#8c7851] transition-colors ${
-                    activeSection === item.toLowerCase()
-                      ? "text-[#8c7851] font-semibold"
-                      : ""
-                  }`}
-                >
-                  {item}
-                </a>
-              </li>
-            )
-          )}
+          {["Home", "Experience", "Projects", "Contact"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                className={`hover:text-[#8c7851] transition-colors ${
+                  activeSection === item.toLowerCase()
+                    ? "text-[#8c7851] font-semibold"
+                    : ""
+                }`}
+              >
+                {item}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* Mobile Toggle */}
@@ -87,23 +85,21 @@ const Navbar = ({ activeSection, isScrolled }) => {
         }`}
       >
         <ul className="flex flex-col p-6 gap-4 text-center">
-          {["Home", "Services", "Experience", "Projects", "Contact"].map(
-            (item) => (
-              <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
-                  className={`block py-2 ${
-                    activeSection === item.toLowerCase()
-                      ? "text-[#8c7851] font-semibold"
-                      : "text-[#716040]"
-                  }`}
-                >
-                  {item}
-                </a>
-              </li>
-            )
-          )}
+          {["Home", "Experience", "Projects", "Contact"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                onClick={() => setIsOpen(false)}
+                className={`block py-2 ${
+                  activeSection === item.toLowerCase()
+                    ? "text-[#8c7851] font-semibold"
+                    : "text-[#716040]"
+                }`}
+              >
+                {item}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

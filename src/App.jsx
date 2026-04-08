@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Services from "./components/Services";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
@@ -22,13 +21,7 @@ const App = () => {
       setIsScrolled(scrolled > 50);
       setShowBackToTop(scrolled > 500);
 
-      const sections = [
-        "home",
-        "services",
-        "experience",
-        "projects",
-        "contact",
-      ];
+      const sections = ["home", "experience", "projects", "contact"];
       const scrollPosition = scrolled + 150;
 
       for (const section of sections) {
@@ -127,7 +120,6 @@ const App = () => {
 
       <Navbar activeSection={activeSection} isScrolled={isScrolled} />
       <Hero />
-      <Services />
       <Experience />
       <Projects />
       <Contact />

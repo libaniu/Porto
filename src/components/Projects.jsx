@@ -1,48 +1,80 @@
-// c:\Users\Admin\Documents\Project\portofolio\src\components\Projects.jsx
 import React, { useState, useEffect, useRef } from "react";
-import project1 from "../assets/img/project1.png";
-import project2 from "../assets/img/project2.png";
-import project3 from "../assets/img/project3.png";
 
 const projects = [
   {
     id: 1,
-    img: project1,
+    img: "/projects/ruang-nadi/cover.png",
     title: "Ruang Nadi Coffee",
-    desc: "Landing page modern dan estetik untuk kedai kopi. Menampilkan katalog menu digital dan melakukan pemesanan.",
+    desc: "Web dinamis operasional kedai kopi, Menghadirkan display menu digital yang modern dan fitur pemesanan langsung.",
     longDesc:
       "Ruang Nadi Coffee adalah platform digital yang dirancang untuk menampilkan katalog menu interaktif, informasi lokasi, dan integrasi pemesanan sederhana. Desainnya responsif dan dioptimalkan untuk kecepatan muat yang cepat.",
-    technologies: ["React", "Tailwind CSS", "Framer Motion"],
+    technologies: [
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "MongoDB",
+      "Midtrans Payment Gateway",
+    ],
     link: "https://ruang-nadi-web.vercel.app/",
     isMobile: false,
+    gallery: [
+      "/projects/ruang-nadi/1.png",
+      "/projects/ruang-nadi/2.png",
+      "/projects/ruang-nadi/3.png",
+      "/projects/ruang-nadi/4.png",
+      "/projects/ruang-nadi/5.png",
+      "/projects/ruang-nadi/6.png",
+    ],
   },
   {
     id: 2,
-    img: project2,
+    img: "/projects/myllet/cover.png",
     title: "Myllet Finance",
     desc: "Aplikasi manajemen keuangan pribadi untuk mencatat pemasukan dan pengeluaran.",
     longDesc:
-      "Myllet Finance membantu pengguna melacak kesehatan finansial mereka. Fitur utamanya meliputi pencatatan transaksi harian, visualisasi grafik pengeluaran, dan penetapan anggaran bulanan. Aplikasi ini didesain mobile-first untuk kemudahan akses di mana saja.",
-    technologies: ["Next.js", "TypeScript", "Chart.js", "Supabase"],
+      "Myllet Finance membantu pengguna melacak kesehatan finansial mereka. Fiturnya meliputi pencatatan transaksi harian, visualisasi grafik pengeluaran, penetapan anggaran bulanan, serta integrasi Gemini AI untuk memberikan saran cerdas berdasarkan data keuangan pengguna. Aplikasi ini didesain mobile-first untuk kemudahan akses di mana saja.",
+    technologies: [
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "Chart.js",
+      "Supabase",
+      "Gemini AI",
+    ],
     link: "https://wallet-bice-beta.vercel.app/",
     isMobile: true,
+    gallery: [
+      "/projects/myllet/1.png",
+      "/projects/myllet/2.png",
+      "/projects/myllet/3.png", 
+      "/projects/myllet/4.png",
+    ],
   },
   {
     id: 3,
-    img: project3,
+    img: "/projects/booking/cover.png",
     title: "Booking Futsal AWK",
     desc: "Sistem reservasi lapangan futsal berbasis web untuk kemudahan pengecekan jadwal.",
     longDesc:
       "Sistem ini mempermudah penyewaan lapangan futsal dengan fitur cek jadwal real-time, booking online, dan manajemen member. Admin dapat mengelola jadwal dan pembayaran melalui dashboard khusus.",
-    technologies: ["PHP", "Bootstrap", "MySQL"],
+    technologies: ["PHP", "Bootstrap", "MySQL", "Midtrans Payment Gateway"],
     link: "#",
     isMobile: false,
+    gallery: [
+      "/projects/booking/1.png",
+      "/projects/booking/2.png",
+      "/projects/booking/3.png",
+      "/projects/booking/4.png",
+      "/projects/booking/5.png",
+      "/projects/booking/6.png",
+    ],
   },
 ];
 
 const Projects = () => {
   const carouselRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeImage, setActiveImage] = useState(null);
 
   // Infinite Scroll Logic
   const extendedProjects = [...projects, ...projects, ...projects].map(
@@ -145,7 +177,10 @@ const Projects = () => {
           {extendedProjects.map((project) => (
             <div
               key={project.uniqueId}
-              onClick={() => setSelectedProject(project)}
+              onClick={() => {
+                setSelectedProject(project);
+                setActiveImage(project.img);
+              }}
               className="snap-center shrink-0 w-[85%] md:w-[45%] lg:w-87.5 glass-card rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-[#8c7851]/10 transition-all duration-300 group cursor-pointer"
             >
               {/* Image Wrapper */}
@@ -233,7 +268,7 @@ const Projects = () => {
             <div className="w-full md:w-1/2 bg-[#f9f4ef] relative flex items-center justify-center p-8 md:p-12">
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
-                  src={selectedProject.img}
+                  src={activeImage || selectedProject.img}
                   alt={selectedProject.title}
                   className={`max-h-[40vh] md:max-h-[60vh] w-auto object-contain drop-shadow-2xl ${
                     selectedProject.isMobile
@@ -273,16 +308,35 @@ const Projects = () => {
                     <span className="w-8 h-0.5 bg-[#8c7851]"></span>
                     Gallery
                   </h4>
-                  <div className="grid grid-cols-3 gap-3">
-                    {[1, 2, 3].map((_, i) => (
+                  <div className="flex overflow-x-auto gap-3 pb-2 hide-scrollbar snap-x snap-mandatory">
+                    {(
+                      selectedProject.gallery || [
+                        selectedProject.img,
+                        selectedProject.img,
+                        selectedProject.img,
+                      ]
+                    ).map((galleryImg, i) => (
                       <div
                         key={i}
-                        className="aspect-video rounded-lg overflow-hidden bg-[#eaddcf] border border-[#eaddcf]/50 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => setActiveImage(galleryImg)}
+                        className={`shrink-0 w-24 sm:w-32 snap-start ${
+                          selectedProject.isMobile
+                            ? "aspect-9/16"
+                            : "aspect-video"
+                        } rounded-lg overflow-hidden bg-[#eaddcf] border ${
+                          activeImage === galleryImg
+                            ? "border-[#8c7851] ring-2 ring-[#8c7851]/50"
+                            : "border-[#eaddcf]/50"
+                        } cursor-pointer hover:opacity-80 transition-all flex items-center justify-center`}
                       >
                         <img
-                          src={selectedProject.img}
-                          alt="Gallery"
-                          className="w-full h-full object-cover"
+                          src={galleryImg}
+                          alt={`Gallery ${i + 1}`}
+                          className={`w-full h-full ${
+                            selectedProject.isMobile
+                              ? "object-contain py-2"
+                              : "object-cover"
+                          }`}
                         />
                       </div>
                     ))}
