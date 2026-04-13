@@ -46,7 +46,7 @@ const projects = [
     gallery: [
       "/projects/myllet/1.png",
       "/projects/myllet/2.png",
-      "/projects/myllet/3.png", 
+      "/projects/myllet/3.png",
       "/projects/myllet/4.png",
     ],
   },
@@ -58,7 +58,7 @@ const projects = [
     longDesc:
       "Sistem ini mempermudah penyewaan lapangan futsal dengan fitur cek jadwal real-time, booking online, dan manajemen member. Admin dapat mengelola jadwal dan pembayaran melalui dashboard khusus.",
     technologies: ["PHP", "Bootstrap", "MySQL", "Midtrans Payment Gateway"],
-    link: "#",
+    link: "https://libaniu.rf.gd/index.php",
     isMobile: false,
     gallery: [
       "/projects/booking/1.png",
