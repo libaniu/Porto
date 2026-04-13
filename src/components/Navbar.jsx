@@ -16,13 +16,18 @@ const Navbar = ({ activeSection, isScrolled }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  // Tutup menu mobile jika pengguna kembali scroll ke paling atas
+  useEffect(() => {
+    if (!isScrolled) setIsOpen(false);
+  }, [isScrolled]);
+
   return (
     <nav
       ref={navRef}
       className={`fixed z-50 transition-all duration-500 ease-in-out left-1/2 -translate-x-1/2 ${
         isScrolled
           ? "top-4 w-[90%] md:w-[70%] lg:w-[60%] rounded-full glass-nav py-3"
-          : "top-0 w-full py-6 bg-transparent"
+          : "top-0 w-full py-6 bg-[#f9f4ef]/90 backdrop-blur-md border-b border-[#eaddcf]/40"
       }`}
     >
       <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">

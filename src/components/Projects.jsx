@@ -105,6 +105,26 @@ const Projects = () => {
     }
   };
 
+  // Handle Escape key and Body Scroll Lock
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelectedProject(null);
+      }
+    };
+
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProject]);
+
   const scrollLeft = () => {
     if (carouselRef.current)
       carouselRef.current.scrollBy({ left: -320, behavior: "smooth" });
@@ -194,6 +214,7 @@ const Projects = () => {
                     <img
                       src={project.img}
                       alt={project.title}
+                      loading="lazy"
                       className="h-full w-auto object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
                     />
                   </div>
@@ -201,6 +222,7 @@ const Projects = () => {
                   <img
                     src={project.img}
                     alt={project.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 )}
@@ -316,8 +338,9 @@ const Projects = () => {
                         selectedProject.img,
                       ]
                     ).map((galleryImg, i) => (
-                      <div
+                      <button
                         key={i}
+                        type="button"
                         onClick={() => setActiveImage(galleryImg)}
                         className={`shrink-0 w-24 sm:w-32 snap-start ${
                           selectedProject.isMobile
@@ -337,8 +360,9 @@ const Projects = () => {
                               ? "object-contain py-2"
                               : "object-cover"
                           }`}
+                          loading="lazy"
                         />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>

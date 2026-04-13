@@ -65,7 +65,7 @@ const App = () => {
 
         /* Glassmorphism menggunakan variable warna CSS atau hardcoded rgba untuk transparansi */
         .glass-nav {
-          background: rgba(255, 255, 254, 0.7);
+          background: rgba(249, 244, 239, 0.7);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.8);
