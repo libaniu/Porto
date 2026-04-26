@@ -105,7 +105,6 @@ const Projects = () => {
     }
   };
 
-  // Handle Escape key and Body Scroll Lock
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -125,13 +124,18 @@ const Projects = () => {
     };
   }, [selectedProject]);
 
-  const scrollLeft = () => {
-    if (carouselRef.current)
-      carouselRef.current.scrollBy({ left: -320, behavior: "smooth" });
-  };
-  const scrollRight = () => {
-    if (carouselRef.current)
-      carouselRef.current.scrollBy({ left: 320, behavior: "smooth" });
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const card = carouselRef.current.querySelector(".snap-center");
+      if (card) {
+        // Scroll by the width of one card + its gap (approx)
+        const scrollAmount = card.offsetWidth + 24; // 24px is gap-6
+        carouselRef.current.scrollBy({
+          left: direction * scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    }
   };
 
   return (
@@ -150,8 +154,9 @@ const Projects = () => {
           {/* Buttons */}
           <div className="hidden md:flex gap-3">
             <button
-              onClick={scrollLeft}
+              onClick={() => scrollCarousel(-1)}
               className="p-3 rounded-full border border-[#020826]/10 hover:border-[#8c7851] text-[#716040] hover:text-[#fffffe] hover:bg-[#8c7851] transition-all"
+              aria-label="Scroll projects left"
             >
               <svg
                 className="w-5 h-5"
@@ -168,8 +173,9 @@ const Projects = () => {
               </svg>
             </button>
             <button
-              onClick={scrollRight}
+              onClick={() => scrollCarousel(1)}
               className="p-3 rounded-full border border-[#020826]/10 hover:border-[#8c7851] text-[#716040] hover:text-[#fffffe] hover:bg-[#8c7851] transition-all"
+              aria-label="Scroll projects right"
             >
               <svg
                 className="w-5 h-5"
@@ -195,13 +201,14 @@ const Projects = () => {
           className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-10 hide-scrollbar px-2"
         >
           {extendedProjects.map((project) => (
-            <div
+            <button
               key={project.uniqueId}
               onClick={() => {
                 setSelectedProject(project);
                 setActiveImage(project.img);
               }}
-              className="snap-center shrink-0 w-[85%] md:w-[45%] lg:w-87.5 glass-card rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-[#8c7851]/10 transition-all duration-300 group cursor-pointer"
+              aria-label={`View details for ${project.title}`}
+              className="snap-center shrink-0 w-[85%] md:w-[45%] lg:w-87.5 glass-card rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-[#8c7851]/10 transition-all duration-300 group cursor-pointer text-left"
             >
               {/* Image Wrapper */}
               <div className="relative aspect-video overflow-hidden bg-[#eaddcf]">
@@ -244,7 +251,7 @@ const Projects = () => {
                   {project.desc}
                 </p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -259,16 +266,10 @@ const Projects = () => {
             className="bg-[#fffffe] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative flex flex-col md:flex-row overflow-hidden animate-[scale-up_0.3s_ease-out]"
             onClick={(e) => e.stopPropagation()}
           >
-            <style>{`
-              @keyframes scale-up {
-                0% { transform: scale(0.9); opacity: 0; }
-                100% { transform: scale(1); opacity: 1; }
-              }
-            `}</style>
-
             {/* Close Button */}
             <button
               onClick={() => setSelectedProject(null)}
+              aria-label="Close project details"
               className="absolute top-4 right-4 z-20 p-2 rounded-full bg-[#fffffe]/50 backdrop-blur-md text-[#020826] hover:bg-[#f25042] hover:text-white transition-all duration-300 shadow-sm border border-white/20"
             >
               <svg
@@ -341,6 +342,7 @@ const Projects = () => {
                       <button
                         key={i}
                         type="button"
+                        aria-label={`View image ${i + 1} of ${selectedProject.gallery.length}`}
                         onClick={() => setActiveImage(galleryImg)}
                         className={`shrink-0 w-24 sm:w-32 snap-start ${
                           selectedProject.isMobile

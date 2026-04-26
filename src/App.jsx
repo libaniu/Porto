@@ -16,40 +16,47 @@ const App = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrolled = window.scrollY;
-      setIsScrolled(scrolled > 50);
-      setShowBackToTop(scrolled > 500);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+          setIsScrolled(scrolled > 50);
+          setShowBackToTop(scrolled > 500);
 
-      const sections = ["home", "experience", "projects", "contact"];
-      const scrollPosition = scrolled + 150;
+          const sections = ["home", "experience", "projects", "contact"];
+          // Menyesuaikan trigger point agar lebih responsif (1/3 dari layar)
+          const scrollPosition = scrolled + window.innerHeight / 3;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetHeight = element.offsetHeight;
+              if (
+                scrollPosition >= offsetTop &&
+                scrollPosition < offsetTop + offsetHeight
+              ) {
+                setActiveSection(section);
+              }
+            }
           }
-        }
-      }
 
-      // Parallax Effect for Blobs
-      if (blob1Ref.current) {
-        blob1Ref.current.style.transform = `translateY(${scrolled * 0.2}px)`;
-      }
-      if (blob2Ref.current) {
-        blob2Ref.current.style.transform = `translateY(${scrolled * 0.3}px)`;
-      }
-      if (blob3Ref.current) {
-        blob3Ref.current.style.transform = `translateY(${scrolled * 0.1}px)`;
+          // Parallax Effect for Blobs
+          if (blob1Ref.current)
+            blob1Ref.current.style.transform = `translateY(${scrolled * 0.2}px)`;
+          if (blob2Ref.current)
+            blob2Ref.current.style.transform = `translateY(${scrolled * 0.3}px)`;
+          if (blob3Ref.current)
+            blob3Ref.current.style.transform = `translateY(${scrolled * 0.1}px)`;
+
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

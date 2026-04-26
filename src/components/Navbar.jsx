@@ -16,7 +16,6 @@ const Navbar = ({ activeSection, isScrolled }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // Tutup menu mobile jika pengguna kembali scroll ke paling atas
   useEffect(() => {
     if (!isScrolled) setIsOpen(false);
   }, [isScrolled]);

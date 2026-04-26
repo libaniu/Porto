@@ -74,23 +74,25 @@ const Hero = () => {
           👋 Welcome to my portfolio
         </div>
 
-      <div className="space-y-4">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-[#020826] tracking-tight leading-tight">
-          Hi, I'm <span className="text-[#8c7851]">Fahmi Nabil.</span>
-          <br />
-          <span className="whitespace-nowrap text-3xl sm:text-5xl md:text-7xl">
-            <span className="text-gradient">{text}</span>
-            <span className="animate-pulse text-[#f25042]">|</span>
-          </span>
-        </h1>
+        <div className="space-y-4">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-[#020826] tracking-tight leading-tight">
+            Hi, I'm <span className="text-[#8c7851]">Fahmi Nabil.</span>
+            <br />
+            <span className="whitespace-nowrap text-3xl sm:text-5xl md:text-7xl">
+              <span className="text-gradient">{text}</span>
+              <span aria-hidden="true" className="animate-pulse text-[#f25042]">
+                |
+              </span>
+            </span>
+          </h1>
 
-        <p className="text-[#716040] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-          Detail-oriented professional blending IT expertise with administrative
-          efficiency. I specialize in building web solutions, managing internal
-          tools, and streamlining daily operational workflows to support
-          seamless business activities.
-        </p>
-      </div>
+          <p className="text-[#716040] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Detail-oriented professional blending IT expertise with
+            administrative efficiency. I specialize in building web solutions,
+            managing internal tools, and streamlining daily operational
+            workflows to support seamless business activities.
+          </p>
+        </div>
 
         <div className="flex flex-wrap justify-center gap-4 pt-4">
           <a
@@ -101,7 +103,7 @@ const Hero = () => {
           </a>
           <a
             href="/cv.pdf"
-            download
+            download="Fahmi_Nabil_CV.pdf"
             aria-label="Download CV Fahmi Nabil"
             className="px-8 py-3.5 border-2 border-[#8c7851] text-[#8c7851] hover:bg-[#8c7851] hover:text-[#fffffe] font-medium rounded-full transition-all"
           >
@@ -113,8 +115,10 @@ const Hero = () => {
       {/* INFINITE TECH STACK MARQUEE */}
       <div className="w-full max-w-5xl mx-auto mt-8 md:mt-8 overflow-hidden border border-[#eaddcf] rounded-2xl bg-[#eaddcf]/30 py-4">
         <div className="w-full inline-flex flex-nowrap overflow-hidden mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-128px),transparent_100%)]">
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-marquee">
-            {/* Set asli: dibaca oleh screen reader secara normal */}
+          <ul
+            className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-marquee"
+            style={{ animationDuration: "40s" }}
+          >
             {techs.map((tech) => (
               <li key={tech.id} className="flex items-center gap-2 group">
                 <img
@@ -129,26 +133,23 @@ const Hero = () => {
               </li>
             ))}
 
-            {/* Set duplikat: disembunyikan dari screen reader agar tidak dibaca berulang */}
-            {[1, 2].map((iteration) =>
-              techs.map((tech) => (
-                <li
-                  key={`dup-${iteration}-${tech.id}`}
-                  aria-hidden="true"
-                  className="flex items-center gap-2 group"
-                >
-                  <img
-                    src={tech.src}
-                    alt=""
-                    loading="lazy"
-                    className="h-8 md:h-9 w-auto object-contain transition-all duration-300 grayscale group-hover:grayscale-0"
-                  />
-                  <span className="text-[#716040] font-medium group-hover:text-[#020826] transition-colors">
-                    {tech.title}
-                  </span>
-                </li>
-              )),
-            )}
+            {/* Duplicate for seamless loop */}
+            {techs.map((tech) => (
+              <li
+                key={`dup-${tech.id}`}
+                aria-hidden="true"
+                className="flex items-center gap-2 group"
+              >
+                <img
+                  src={tech.src}
+                  alt=""
+                  className="h-8 md:h-9 w-auto object-contain transition-all duration-300 grayscale group-hover:grayscale-0"
+                />
+                <span className="text-[#716040] font-medium group-hover:text-[#020826] transition-colors">
+                  {tech.title}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

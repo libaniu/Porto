@@ -1,14 +1,20 @@
-// c:\Users\Admin\Documents\Project\portofolio\src\components\Contact.jsx
 import React, { useState } from "react";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({ name: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleContactSubmit = (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     const subject = `Contact from Portfolio: ${contactForm.name}`;
     const body = `Name: ${contactForm.name}%0D%0A%0D%0AMessage:%0D%0A${contactForm.message}`;
     window.location.href = `mailto:fahminabill40@gmail.com?subject=${subject}&body=${body}`;
+
+    // Reset button state after a short delay to allow the mail client to open
+    setTimeout(() => setIsSubmitting(false), 2500);
   };
 
   return (
@@ -17,7 +23,7 @@ const Contact = () => {
       className="bg-[#232946] text-[#fffffe] relative pt-16 pb-8"
     >
       {/* Wave Separator */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-0">
+      <div className="absolute -top-[1px] left-0 w-full overflow-hidden leading-none">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,62 +47,87 @@ const Contact = () => {
           onSubmit={handleContactSubmit}
           className="max-w-md mx-auto mb-4 space-y-3 mt-5"
         >
-          <input
-            type="text"
-            placeholder="Nama Anda"
-            required
-            className="w-full px-4 py-2 rounded-lg bg-[#fffffe]/10 border border-[#eaddcf]/20 text-[#fffffe] placeholder-[#eaddcf]/50 focus:outline-none focus:border-[#8c7851] transition-colors text-sm"
-            value={contactForm.name}
-            onChange={(e) =>
-              setContactForm({ ...contactForm, name: e.target.value })
-            }
-          />
-          <textarea
-            placeholder="Pesan Anda"
-            required
-            rows="3"
-            className="w-full px-4 py-2 rounded-lg bg-[#fffffe]/10 border border-[#eaddcf]/20 text-[#fffffe] placeholder-[#eaddcf]/50 focus:outline-none focus:border-[#8c7851] transition-colors resize-none text-sm"
-            value={contactForm.message}
-            onChange={(e) =>
-              setContactForm({ ...contactForm, message: e.target.value })
-            }
-          ></textarea>
+          <div>
+            <label htmlFor="contact-name" className="sr-only">
+              Nama Anda
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              placeholder="Nama Anda"
+              required
+              className="w-full px-4 py-2 rounded-lg bg-[#fffffe]/10 border border-[#eaddcf]/20 text-[#fffffe] placeholder-[#eaddcf]/50 focus:outline-none focus:ring-2 focus:ring-[#8c7851] transition-all text-sm"
+              value={contactForm.name}
+              onChange={(e) =>
+                setContactForm({ ...contactForm, name: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label htmlFor="contact-message" className="sr-only">
+              Pesan Anda
+            </label>
+            <textarea
+              id="contact-message"
+              placeholder="Pesan Anda"
+              required
+              rows="3"
+              className="w-full px-4 py-2 rounded-lg bg-[#fffffe]/10 border border-[#eaddcf]/20 text-[#fffffe] placeholder-[#eaddcf]/50 focus:outline-none focus:ring-2 focus:ring-[#8c7851] transition-all resize-none text-sm"
+              value={contactForm.message}
+              onChange={(e) =>
+                setContactForm({ ...contactForm, message: e.target.value })
+              }
+            ></textarea>
+          </div>
           <button
             type="submit"
-            className="w-full inline-flex justify-center items-center gap-2 px-6 py-2 bg-[#8c7851] text-[#fffffe] font-bold rounded-lg hover:bg-[#fffffe] hover:text-[#020826] transition-all hover:-translate-y-1 text-sm"
+            disabled={isSubmitting}
+            className="w-full inline-flex justify-center items-center gap-2 px-6 py-3 bg-[#8c7851] text-[#fffffe] font-bold rounded-lg hover:bg-[#fffffe] hover:text-[#020826] transition-all hover:-translate-y-1 text-sm disabled:bg-gray-500 disabled:cursor-wait disabled:transform-none"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-            Kirim Pesan
+            {isSubmitting ? (
+              "Membuka aplikasi email..."
+            ) : (
+              <>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                Kirim Pesan
+              </>
+            )}
           </button>
         </form>
 
         <div className="flex justify-center gap-6 mb-6 border-t border-[#eaddcf]/10 pt-6 text-sm">
           <a
-            href="#"
+            href="https://www.linkedin.com/in/fahmi-nabil"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[#eaddcf] hover:text-[#8c7851] transition-colors"
           >
             LinkedIn
           </a>
           <a
-            href="#"
+            href="https://github.com/libaniu"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[#eaddcf] hover:text-[#8c7851] transition-colors"
           >
             GitHub
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com/your-username"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[#eaddcf] hover:text-[#8c7851] transition-colors"
           >
             Instagram
