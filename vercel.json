@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/((?!maintenance).*)",
+      "destination": "/maintenance",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/maintenance",
+      "destination": "https://raw.githubusercontent.com/libaniu/Porto/main/public/index.html"
+    }
+  ]
+}
