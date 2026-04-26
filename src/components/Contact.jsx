@@ -23,7 +23,7 @@ const Contact = () => {
       className="bg-[#232946] text-[#fffffe] relative pt-16 pb-8"
     >
       {/* Wave Separator */}
-      <div className="absolute -top-[1px] left-0 w-full overflow-hidden leading-none">
+      <div className="absolute -top-px left-0 w-full overflow-hidden leading-none">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
